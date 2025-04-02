@@ -1,0 +1,10 @@
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJ1dGxlcyIsImlkIjoiNjdlZGE5MWU1NWI2ZjAyZDg4MjRlZTM2IiwiaWF0IjoxNzQzNjI4NTc5fQ.XQfQKHEiDc10jPvkqprBsKAjlE80L8vHsS-TdoT1I08
+
+{
+    "title": "Guitar, the sky and the stars",
+    "author": "Edward Normal",
+    "url": "www.eppunormaali.fi",
+    "likes": 300000
+}
