@@ -1,0 +1,45 @@
+name: deployment pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+jobs:
+  deployment_pipeline:
+    runs_on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: create env file
+        run: |
+          touch .env
+          echo MONGO_PASS=${{ secrets.MONGO_PASS }} > .env
+          echo SECRET_KEY=${{ secrets.SECRET_KEY }} > .env
+          cat .env
+      - name: Install dependencies
+        run: npm install
+      - name: check style
+        run: npm run eslint
+      - name: run backend tests
+        run: npm run test-back
+      - name: run frontend tests
+        run: npm run test
+      - name: build app
+        run: npm run build
+      - name: run e2e tests
+        uses: cypress-io/github-action@v5
+        with:
+          command: npm run test:e2e
+          start: npm run start-prod
+          wait-on: http://localhost:3001
+      - name: Trigger deployment
+        env:
+          COMMIT_CONTAINS: ${{ contains(toJson(github.event.commits.*.message), '#skip') }}
+        if: ${{ github.event_name == 'push' &&  env.COMMIT_CONTAINS == 'false' }}
+        run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
