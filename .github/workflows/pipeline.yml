@@ -19,8 +19,8 @@ jobs:
       - name: create env file
         run: |
           touch .env
-          echo MONGO_PASS=${{ secrets.MONGO_PASS }} > .env
-          echo SECRET_KEY=${{ secrets.SECRET_KEY }} > .env
+          echo MONGO_PASS=${{ secrets.MONGO_PASS }} >> .env
+          echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
           cat .env
       - name: Install dependencies
         run: npm install --legacy-peer-deps
