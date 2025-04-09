@@ -36,6 +36,7 @@ jobs:
           command: npm run test:e2e
           start: npm run start-prod
           wait-on: http://localhost:3001
+          install: false
       - name: Trigger deployment
         env:
           COMMIT_CONTAINS: ${{ contains(toJson(github.event.commits.*.message), '#skip') }}
