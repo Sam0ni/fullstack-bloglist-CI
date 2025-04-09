@@ -7,7 +7,7 @@ describe("Blog app", function() {
             password: "testauson5nosanotaan1kautta5"
         }
         cy.request("POST", "http://localhost:3003/api/users", user)
-        cy.visit("http://localhost:3000")
+        cy.visit("http://localhost:3003")
     })
 
     it("Login form is shown", function() {
@@ -31,7 +31,7 @@ describe("Blog app", function() {
             cy.get("#password").type("testauson1nosanotaan5kautta5")
             cy.get("#loginButton").click()
 
-            cy.get(".notif").contains("invalid username or password")
+            cy.get(".notif").contains("invalid user or password")
         })
     })
 
@@ -67,7 +67,7 @@ describe("Blog app", function() {
                 cy.contains("testaus? mr.test")
                     .get("#likes").contains(1)
 
-                cy.visit("http://localhost:3000")
+                cy.visit("http://localhost:3003")
 
                 cy.contains("testaus? mr.test")
                     .get("#info").click()
@@ -83,7 +83,7 @@ describe("Blog app", function() {
 
                 cy.get("html").should("not.contain", "testaus? mr.test")
 
-                cy.visit("http://localhost:3000")
+                cy.visit("http://localhost:3003")
 
                 cy.get("html").should("not.contain", "testaus? mr.test")
             })
@@ -122,7 +122,7 @@ describe("Blog app", function() {
                 cy.get("@likeButton").click()
                 cy.get("@likeButton").click()
 
-                cy.visit("http://localhost:3000")
+                cy.visit("http://localhost:3003")
 
                 cy.get(".blog").eq(1).should("contain", "testaus2")
                 cy.get(".blog").eq(0).should("contain", "testaus?")
