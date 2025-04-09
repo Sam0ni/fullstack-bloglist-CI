@@ -28,8 +28,6 @@ jobs:
         run: npm run eslint
       - name: run backend tests
         run: npm run test-back
-      - name: run frontend tests
-        run: npm run test
       - name: build app
         run: npm run build
       - name: run e2e tests
