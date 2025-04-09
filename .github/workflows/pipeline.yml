@@ -23,7 +23,7 @@ jobs:
           echo SECRET_KEY=${{ secrets.SECRET_KEY }} > .env
           cat .env
       - name: Install dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
       - name: check style
         run: npm run eslint
       - name: run backend tests
